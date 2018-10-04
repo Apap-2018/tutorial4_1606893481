@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Pilot</title>
+</head>
+<body>
+<h2 th:text="'Pilot License Number : ' + ${pilot.licenseNumber}"></h2>
+<h2 th:text="'Name : ' + ${pilot.name}"></h2>
+<h2 th:text="'Fly Hour : ' + ${pilot.flyHour}"></h2>
+
+<div th:with="flights=${pilot.pilotFlight}">
+    <div th:if="${not#lists.isEmpty(flights)}">
+        <h2>Flight List</h2>
+
+        <table>
+            <tr>
+                <th>Flight Number</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Time</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+            <tr th:each="flight : ${pilot.pilotFlight}">
+                <th th:text="${flight.flightNumber}"></th>
+                <th th:text="${flight.origin}"></th>
+                <th th:text="${flight.destination}"></th>
+                <th th:text="${flight.time}"></th>
+                <th><a th:href="@{|/flight/delete/${flight.flightNumber}|}">Delete</a></th>
+                <th><a th:href="@{|/flight/update/${flight.flightNumber}|}">Update</a></th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<td><a th:href="@{|/flight/add/${pilot.licenseNumber}|}">Tambah</a></td>
+<td><a th:href="@{|/pilot/delete/${pilot.licenseNumber}|}">Hapus Pilot</a></td>
+<td><a th:href="@{|/pilot/update/${pilot.licenseNumber}|}">Update Pilot</a></td>
+
+</body>
+</html>
